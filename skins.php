@@ -39,7 +39,7 @@ call_user_func(function() {
         $page = (array) apply_filters($plugin['prefix'] . 'page', array(
             'capability' => 'manage_options'
           , 'name' => $plugin['name']
-          , 'slug' => basename(__FILE__)
+          , 'slug' => basename(__FILE__, '.php')
           , 'add' => 'add_theme_page'
           , 'parent' => 'themes.php'
         ));
