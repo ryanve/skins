@@ -81,7 +81,7 @@ call_user_func(function() {
             });
 
             add_settings_field($hook, "<code>'$hook'</code> classes:", function() use ($curr, $hook) {
-                $value = \is_string($value = !isset($curr[$hook]) ?: $curr[$hook]) ? \trim($value) : '';
+                $value = is_string($value = !isset($curr[$hook]) ?: $curr[$hook]) ? trim($value) : '';
                 $style = 'max-width:100%;min-width:20%';
                 $place = 'layout-example color-example';
                 echo "<div><textarea style='$style' placeholder='$place' name='$hook'>$value</textarea></div>";
