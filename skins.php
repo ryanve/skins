@@ -3,7 +3,7 @@
 Plugin Name: Skins
 Plugin URI: http://github.com/ryanve/skins
 Description: Add custom CSS classes to your markup for usage in your CSS.
-Version: 1.0.0
+Version: 1.0.1
 Author: Ryan Van Etten
 Author URI: http://ryanve.com
 License: MIT
@@ -57,7 +57,7 @@ call_user_func(function() {
         };
         
         # Create "Settings" link to appear on /wp-admin/plugins.php
-        add_filter('plugin_action_links_' . basename(__FILE__), function($links) use ($page) {
+        add_filter('plugin_action_links_' . plugin_basename(__FILE__), function($links) use ($page) {
             $href = $page['parent'] ? $page['parent'] . '?page=' . $page['slug'] : $page['slug'];
             $href = admin_url($href); #wp 3.0.0+
             array_unshift($links, '<a href="' . $href . '">' . __('Settings') . '</a>');
