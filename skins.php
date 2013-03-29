@@ -33,7 +33,7 @@ call_user_func(function() {
     
         register_deactivation_hook(__FILE__, function() use ($plugin) {
             $plugin['set'](null); # removes all data
-        });
+        }); #wp 2.0+
         
         $page = (array) apply_filters($plugin['prefix'] . 'page', array(
             'capability' => 'manage_options'
@@ -46,20 +46,21 @@ call_user_func(function() {
 
         empty($page['fn']) and $page['fn'] = function() use ($plugin, $page) {
             echo '<div class="wrap">';
-            function_exists('screen_icon') and screen_icon();
+            function_exists('screen_icon') and screen_icon(); #wp 2.7.0+
             echo '<h2>' . $plugin['name'] . '</h2>';
             echo '<p>' . __('List space-separated CSS classes for usage in your CSS:') . '</p>';
             echo '<form method="post" action="options.php">';
-            settings_fields($page['slug']);
-            do_settings_fields($page['slug'], $page['sections'][0]);
-            submit_button(__('Update'));
+            settings_fields($page['slug']); #wp 2.7.0+
+            do_settings_fields($page['slug'], $page['sections'][0]); #wp 2.7.0+
+            submit_button(__('Update')); #wp 3.1.0+
             echo '</form></div>';
         };
         
         # Create "Settings" link to appear on /wp-admin/plugins.php
         add_filter('plugin_action_links_' . basename(__FILE__), function($links) use ($page) {
             $href = $page['parent'] ? $page['parent'] . '?page=' . $page['slug'] : $page['slug'];
-            array_unshift($links, '<a href="' . admin_url($href) . '">' . __('Settings') . '</a>');
+            $href = admin_url($href); #wp 3.0.0+
+            array_unshift($links, '<a href="' . $href . '">' . __('Settings') . '</a>');
             return $links;
         }, 10, 2);
         
@@ -75,17 +76,17 @@ call_user_func(function() {
         $curr = $plugin['get']();
         foreach ($plugin['hooks'] as $hook) {
             register_setting($page['slug'], $hook, function($str) use (&$plugin, &$curr, $hook) {
-                $curr[$hook] = $str ? esc_attr(normalize_whitespace($str)) : '';
+                $curr[$hook] = $str ? esc_attr(normalize_whitespace($str)) : ''; #wp 2.8.0+
                 $plugin['set']($curr);
                 return $curr[$hook];
-            });
+            }); #wp 2.7.0+
 
             add_settings_field($hook, "<code>'$hook'</code> classes:", function() use ($curr, $hook) {
                 $value = is_string($value = !isset($curr[$hook]) ?: $curr[$hook]) ? trim($value) : '';
                 $style = 'max-width:100%;min-width:20%';
                 $place = 'layout-example color-example';
                 echo "<div><textarea style='$style' placeholder='$place' name='$hook'>$value</textarea></div>";
-            }, $page['slug'], $page['sections'][0]); 
+            }, $page['slug'], $page['sections'][0]); #wp 2.7.0+ 
         }
     
     }) : array_reduce($plugin['hooks'], function($curr, $hook) {
