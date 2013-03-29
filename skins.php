@@ -74,7 +74,7 @@ call_user_func(function() {
         
         $curr = $plugin['get']();
         foreach ($plugin['hooks'] as $hook) {
-            register_setting($page['slug'], $hook, function($str) use (&$curr, $hook, $plugin) {
+            register_setting($page['slug'], $hook, function($str) use (&$plugin, &$curr, $hook) {
                 $curr[$hook] = $str ? esc_attr($str) : '';
                 $plugin['set']($curr); # It'd be better to update only once for all, but where?
                 return $curr[$hook];
