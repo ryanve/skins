@@ -38,7 +38,7 @@ call_user_func(function() {
         $page = (array) apply_filters($plugin['prefix'] . 'page', array(
             'capability' => 'manage_options'
           , 'name' => $plugin['name']
-          , 'slug' => basename(__FILE__)
+          , 'slug' => basename(__FILE__, '.php')
           , 'add' => 'add_theme_page'
           , 'parent' => 'themes.php'
           , 'sections' => array('default')
@@ -81,7 +81,7 @@ call_user_func(function() {
             });
 
             add_settings_field($hook, "<code>'$hook'</code> classes:", function() use ($curr, $hook) {
-                $value = \is_string($value = !isset($curr[$hook]) ?: $curr[$hook]) ? \trim($value) : '';
+                $value = is_string($value = !isset($curr[$hook]) ?: $curr[$hook]) ? trim($value) : '';
                 $style = 'max-width:100%;min-width:20%';
                 $place = 'layout-example color-example';
                 echo "<div><textarea style='$style' placeholder='$place' name='$hook'>$value</textarea></div>";
