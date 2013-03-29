@@ -3,7 +3,7 @@
 Plugin Name: Skins
 Plugin URI: http://github.com/ryanve/skins
 Description: Add custom CSS classes to your markup for usage in your CSS.
-Version: 0.x
+Version: 1.0.0
 Author: Ryan Van Etten
 Author URI: http://ryanve.com
 License: MIT
