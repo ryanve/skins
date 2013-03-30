@@ -3,7 +3,7 @@
 Plugin Name: Skins
 Plugin URI: http://github.com/ryanve/skins
 Description: Add custom CSS classes to your markup for usage in your CSS.
-Version: 1.0.1
+Version: 1.0.2
 Author: Ryan Van Etten
 Author URI: http://ryanve.com
 License: MIT
@@ -14,11 +14,11 @@ call_user_func(function() {
     $plugin = array('name' => 'Skins');
     $plugin['option'] = 'plugin:skins';
     $plugin['prefix'] = 'plugin:skins:';
-    $plugin['get'] = function() use ($plugin) {
+    $plugin['get'] = function() use (&$plugin) {
         return (array) get_option($plugin['option']);
     };
     
-    $plugin['set'] = function($data) use ($plugin) {
+    $plugin['set'] = function($data) use (&$plugin) {
         return (null === $data 
             ? delete_option($plugin['option'])
             : update_option($plugin['option'], $data)
@@ -31,7 +31,7 @@ call_user_func(function() {
 
     is_admin() ? add_action('admin_menu', function() use (&$plugin) {
     
-        register_deactivation_hook(__FILE__, function() use ($plugin) {
+        register_deactivation_hook(__FILE__, function() use (&$plugin) {
             $plugin['set'](null); # removes all data
         }); #wp 2.0+
         
@@ -44,7 +44,7 @@ call_user_func(function() {
           , 'sections' => array('default')
         ));
 
-        empty($page['fn']) and $page['fn'] = function() use ($plugin, $page) {
+        empty($page['fn']) and $page['fn'] = function() use (&$plugin, &$page) {
             echo '<div class="wrap">';
             function_exists('screen_icon') and screen_icon(); #wp 2.7.0+
             echo '<h2>' . $plugin['name'] . '</h2>';
@@ -57,7 +57,7 @@ call_user_func(function() {
         };
         
         # Create "Settings" link to appear on /wp-admin/plugins.php
-        add_filter('plugin_action_links_' . plugin_basename(__FILE__), function($links) use ($page) {
+        add_filter('plugin_action_links_' . plugin_basename(__FILE__), function($links) use (&$page) {
             $href = $page['parent'] ? $page['parent'] . '?page=' . $page['slug'] : $page['slug'];
             $href = admin_url($href); #wp 3.0.0+
             array_unshift($links, '<a href="' . $href . '">' . __('Settings') . '</a>');
