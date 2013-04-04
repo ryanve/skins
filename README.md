@@ -1,4 +1,4 @@
-### WP plugin: [Skins](https://github.com/ryanve/skins)
+### [WP plugin](http://wordpress.org/extend/plugins/skins/): [Skins](https://github.com/ryanve/skins)
 
 [Skins](https://github.com/ryanve/skins) adds an admin interface for adding custom CSS classes to hooks like the `'body_class'`. Designers can then use these classes in their CSS. Skins simply provides the interface. It leaves the styling to the designer.
 
