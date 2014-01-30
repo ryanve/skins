@@ -1,9 +1,23 @@
-### [WP plugin](http://wordpress.org/extend/plugins/skins/): [Skins](https://github.com/ryanve/skins)
+# Skins
+#### [WP plugin](http://wordpress.org/plugins/skins/)
+Add custom CSS classes to markup via hooks for CSS usage.
 
-[Skins](https://github.com/ryanve/skins) adds an admin interface for adding custom CSS classes to hooks like the `'body_class'`. Designers can then use these classes in their CSS. Skins simply provides the interface. It leaves the styling to the designer.
+## Usage
+
+- Set classes in Appearance &rarr; Skins
+- Use the classes in your CSS
+
+##  Install
 
 Requires: PHP 5.3+
 
-### License: [MIT](http://opensource.org/licenses/MIT)
+1. [Install via FTP **or** via Plugins &rarr; Add new](http://codex.wordpress.org/Managing_Plugins#Installing_Plugins)
+1. Activate via Plugins &rarr; Installed Plugins
 
-Copyright (C) 2013 by [Ryan Van Etten](https://github.com/ryanve)
+## Fund
+
+[Fund development @ryanve](https://www.gittip.com/ryanve/) <b>=)</b>
+
+## License
+
+[MIT](http://opensource.org/licenses/MIT)
